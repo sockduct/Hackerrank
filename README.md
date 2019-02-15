@@ -4,7 +4,7 @@
 * [C++](C++)
 * [Python](Python)
 
-## [Wiki](wiki)
+## [Wiki](../../wiki)
 
 ## License
 [MIT License](LICENSE)
