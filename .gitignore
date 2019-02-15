@@ -1,0 +1,11 @@
+# C++ binaries
+*.exe
+*.obj
+
+# Python Cache/Compiled files
+__pycache__/*
+*.pyc
+
+# Vim Temp Files
+*.swp
+
