@@ -1,8 +1,6 @@
 #include <cstdlib>
 #include <stdio.h>
 
-// using namespace std;
-
 void update(int *a, int *b) {
     const int orig_a = *a, orig_b = *b;
 
