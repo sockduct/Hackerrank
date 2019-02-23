@@ -6,6 +6,7 @@ Basic Data Types | [basicdatatypes.cpp](basicdatatypes.cpp)
 For Loop | [forloop.cpp](forloop.cpp)
 Conditional Statements | [condstmts.cpp](condstmts.cpp)
 Functions | [functions.cpp](functions.cpp)
+Pointer | [pointer.cpp](pointer.cpp)
 
 <hr>
 
