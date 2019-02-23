@@ -7,6 +7,7 @@ For Loop | [forloop.cpp](forloop.cpp)
 Conditional Statements | [condstmts.cpp](condstmts.cpp)
 Functions | [functions.cpp](functions.cpp)
 Pointer | [pointer.cpp](pointer.cpp)
+Arrays Introduction | [arrayintro.cpp](arrayintro.cpp)
 
 <hr>
 
