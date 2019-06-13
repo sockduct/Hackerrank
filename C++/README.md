@@ -2,12 +2,13 @@
 
 C++ Challenge | My solution
 --------------|-------------
+Arrays Introduction | [arrayintro.cpp](arrayintro.cpp)
 Basic Data Types | [basicdatatypes.cpp](basicdatatypes.cpp)
-For Loop | [forloop.cpp](forloop.cpp)
 Conditional Statements | [condstmts.cpp](condstmts.cpp)
+For Loop | [forloop.cpp](forloop.cpp)
 Functions | [functions.cpp](functions.cpp)
 Pointer | [pointer.cpp](pointer.cpp)
-Arrays Introduction | [arrayintro.cpp](arrayintro.cpp)
+Variable Sized Arrays | [varszarrays.cpp](varszarrays.cpp)
 
 <hr>
 
