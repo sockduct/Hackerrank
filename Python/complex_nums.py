@@ -148,6 +148,8 @@ def main(args):
     x = Complex(*c)
     y = Complex(*d)
     print(*map(str, [x+y, x-y, x*y, x/y, x.mod(), y.mod()]), sep='\n')
+    # --or--
+    print '\n'.join(map(str, [x+y, x-y, x*y, x/y, x.mod(), y.mod()]))
     '''
 
     complex_builtins(a, b, c, d)
