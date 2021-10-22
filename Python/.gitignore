@@ -1,2 +1,6 @@
 # Test files
 *.txt
+
+# Ignore VS Code settings
+.vscode/
+
