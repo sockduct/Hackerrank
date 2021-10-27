@@ -4,6 +4,7 @@ import numpy as np
 '''
 Numpy axes:
                   Axis 1: ====>
+        |-------+-------+-------+-------+
         |  R/C  | col 1 | col 2 | ...   |
         |-------+-------+-------+-------+
 Axis 0: | row 1 |       |       |       |
@@ -21,7 +22,7 @@ Axis 0: | row 1 |       |       |       |
    [3 4],
    [5 6],
    [7 8]]
-   Note:  axis=0 is the default if it's omitted
+  * Note:  axis=0 is the default if it's omitted
 * In a 2D array, axis 1 runs across the columns (see above)
   np.concatenate([np.array([[1,2], [3,4]]), np.array([[5,6], [7,8])])], axis=1)
   [[1 2 5 6],
@@ -39,6 +40,7 @@ Numpy features:
 
   np.concatenate((array_1, array_2, array_3))
   [1 2 3 4 5 6 7 8 9]
+  * Why this result?  See axes explanation above for 1D array.
 
 Reference:  https://www.sharpsightlabs.com/blog/numpy-axes-explained/
 '''
