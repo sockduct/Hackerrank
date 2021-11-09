@@ -5,6 +5,9 @@
 # Visual Studio Analysis Files:
 *.nativecodeanalysis.xml
 
+# MSVC Program Database Files (Symbol Files):
+*.pdb
+
 # Python Cache/Compiled files
 __pycache__/*
 *.pyc
@@ -12,5 +15,9 @@ __pycache__/*
 # Vim Temp Files
 *.swp
 
-# VSCode config
-.vscode/*.json
+# VSCode config directories
+.vscode/
+
+# Test files
+*.txt
+
