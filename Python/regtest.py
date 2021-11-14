@@ -4,7 +4,8 @@ import re
 def main():
     # regex_pattern = r"\d{2}\D\d{2}\D\d{4}"
     # regex_pattern = r"(?:\d{2}\D){2}\d{4}"
-    regex_pattern = r'^[a-zA-Z02468]{40}[\s13579]{5}$'
+    # regex_pattern = r'^[a-zA-Z02468]{40}[\s13579]{5}$'
+    regex_pattern = r'^\b[aeiouAEIOU][a-zA-Z]*\b'
     test_string = input()
 
     # Info
