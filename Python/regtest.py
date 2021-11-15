@@ -5,8 +5,10 @@ def main():
     # regex_pattern = r"\d{2}\D\d{2}\D\d{4}"
     # regex_pattern = r"(?:\d{2}\D){2}\d{4}"
     # regex_pattern = r'^[a-zA-Z02468]{40}[\s13579]{5}$'
-    regex_pattern = r'^\b[aeiouAEIOU][a-zA-Z]*\b'
-    test_string = input()
+    # regex_pattern = r'^\b[aeiouAEIOU][a-zA-Z]*\b'
+    regex_pattern = r'^([a-z])(\w)(\s)(\W)(\d)(\D)([A-Z])([a-zA-Z])([aeiouAEIOU])(\W)\1\2\3\4\5\6\7\8\9\10$'
+    # test_string = input()
+    test_string = 'ab #1?AZa ab #1?AZa '
 
     # Info
     print(f'\ntest_string length:  {len(test_string)}')
