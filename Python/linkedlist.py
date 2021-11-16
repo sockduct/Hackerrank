@@ -128,6 +128,49 @@ class SinglyLinkedList():
         return data
 
 
+    def reverse(self):
+        'Reverse list in place'
+        if self.__length == 0:
+            return
+
+        '''
+        Model:
+        Head<data, next> => Node<data, next> => Node<dat, next> => Tail<data, next> => None
+         None <= NH      <=  N               <=  C                  N                   NN
+        Traverse singly linked list:
+        * Starting at head, save as current
+        * next = current.next
+        * next_next = next.next
+
+        * current.next = None (new tail, but change to tail last so don't orphan current tail)
+        * next.next = current (former head, new tail)
+
+        * current = next_next
+        * current.next = next
+        * next = current.next
+        * next_next = next.next
+        *
+        '''
+
+        # One approach - stack data into a list and then rewrite the list data
+        # in reverse by popping it from the stack
+        current = self.head
+        stack = [current.data]
+        while current.next:
+            current = current.next
+            stack.append(current.data)
+
+        current = self.head
+        while stack:
+            current.data = stack.pop()
+            current = current.next
+        # End approach 1
+
+
+        # Another approach, change pointers by using a 3 node circular queue of
+        # SinglyLinkedList.Nodes
+
+
     class Node():
         'SinglyLinkedList Node element'
         def __init__(self, data=None, next=None):
@@ -147,6 +190,31 @@ class SinglyLinkedList():
             # it's outside the BMP and my console program cannot display it!
             more = '➔…' if self.next else '❎'
             return f'{self.data}, {more}'
+
+
+    class Circularq():
+        'Circular queue of SinglyLinkedList Node elements'
+        def __getitem__(self, index):
+            index %= self.__length
+            return self.__data[index]
+
+        def __init__(self, elements):
+            if elements < 1:
+                raise ValueError(f'{self.__class__} must be instantiated with a '
+                                 f'positive number of elements - got {elements}')
+            self.__data = [SinglyLinkedList.Node() for _ in range(elements)]
+            self.__length = elements
+
+        def __len__(self):
+            return self.__length
+
+        def __repr__(self):
+            term = '❎' if self.__length == 1 else '2=…'
+            return f'<{self.__length} elements, 1={self.__data[0]}, {term}'
+
+        def __setitem__(self, index, value):
+            index %= self.__length
+            self.__data[index] = value
 
 
 def test_method(method):
