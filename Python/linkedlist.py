@@ -130,30 +130,19 @@ class SinglyLinkedList():
 
     def reverse(self):
         'Reverse list in place'
-        if self.__length == 0:
+        if self.__length in [0, 1]:
             return
-
-        '''
-        Model:
-        Head<data, next> => Node<data, next> => Node<dat, next> => Tail<data, next> => None
-         None <= NH      <=  N               <=  C                  N                   NN
-        Traverse singly linked list:
-        * Starting at head, save as current
-        * next = current.next
-        * next_next = next.next
-
-        * current.next = None (new tail, but change to tail last so don't orphan current tail)
-        * next.next = current (former head, new tail)
-
-        * current = next_next
-        * current.next = next
-        * next = current.next
-        * next_next = next.next
-        *
-        '''
+        elif self.__length == 2:
+            old_head = self.head
+            self.head = self.tail
+            self.head.next = old_head
+            self.tail = old_head
+            self.tail.next = None
+            return
 
         # One approach - stack data into a list and then rewrite the list data
         # in reverse by popping it from the stack
+        '''
         current = self.head
         stack = [current.data]
         while current.next:
@@ -164,11 +153,48 @@ class SinglyLinkedList():
         while stack:
             current.data = stack.pop()
             current = current.next
+        '''
         # End approach 1
 
 
         # Another approach, change pointers by using a 3 node circular queue of
         # SinglyLinkedList.Nodes
+        q = SinglyLinkedList.Circularq(3)
+        current = 0
+        q[current] = self.head
+        q[current + 1] = q[current].next
+        self.tail = self.head
+        self.tail.next = None
+        while q[current + 1].next:
+            q[current + 2] = q[current + 1].next
+            q[current + 1].next = q[current]
+            current += 1
+        q[current + 1].next = q[current]
+        self.head = q[current + 1]
+        # End approach 2
+
+
+        '''
+        Hackerrank Solutions:
+        prev = NULL
+        cur = head
+        nxt = NULL
+        while cur is not NULL
+            nxt = (*cur).next
+            (*cur).next = prev
+            prev = cur
+            cur = nxt
+        head = prev
+        return head
+
+        nxt = None
+        while head:
+            tmp = head.next
+            head.next = nxt
+            nxt = head
+            head = tmp
+        return nxt
+        '''
 
 
     class Node():
