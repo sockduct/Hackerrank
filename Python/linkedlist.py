@@ -1,4 +1,15 @@
 class SinglyLinkedList():
+    def __eq__(self, other):
+        if self.__length != other.__length:
+            return False
+        return self.__str__() == other.__str__()
+
+    def __ge__(self, other):
+        return NotImplemented
+
+    def __gt__(self, other):
+        return NotImplemented
+
     def __init__(self):
         self.head = None
         self.tail = None
@@ -9,6 +20,15 @@ class SinglyLinkedList():
 
     def __len__(self):
         return self.__length
+
+    def __le__(self, other):
+        return NotImplemented
+
+    def __lt__(self, other):
+        return NotImplemented
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def __repr__(self):
         same = self.head is self.tail
@@ -159,6 +179,7 @@ class SinglyLinkedList():
 
         # Another approach, change pointers by using a 3 node circular queue of
         # SinglyLinkedList.Nodes
+        '''
         q = SinglyLinkedList.Circularq(3)
         current = 0
         q[current] = self.head
@@ -171,9 +192,22 @@ class SinglyLinkedList():
             current += 1
         q[current + 1].next = q[current]
         self.head = q[current + 1]
+        '''
         # End approach 2
 
 
+        # Hackerrank inspired solution - use 3 references/pointers
+        prev = None
+        current = self.head
+        self.tail = self.head
+        next = None
+        while current:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        self.head = prev
+        # End approach 3
         '''
         Hackerrank Solutions:
         prev = NULL
