@@ -18,6 +18,12 @@ class SinglyLinkedList():
         # to protect this from outside changes?
         self.__length = 0
 
+    def __iter__(self):
+        current = self.head
+        while current:
+            yield current.data
+            current = current.next
+
     def __len__(self):
         return self.__length
 
@@ -61,6 +67,10 @@ class SinglyLinkedList():
         self.__length += 1
         self.tail = node
 
+    def extend(self, data):
+        'Append (a) new node(s) from iterable'
+        ...
+
     def insert(self, data, index=0):
         '''
         Insert a new node with specified data at specified index, 0 by default
@@ -98,6 +108,45 @@ class SinglyLinkedList():
     def length(self):
         'Manage access to length attribute - no updating/deleting'
         return self.__length
+
+    def merge(self, other):
+        'Merge two already sorted lists in ascending order'
+        if not isinstance(other, SinglyLinkedList):
+            raise TypeError(f'Expected {self.__class__} got {other.__class__}')
+
+        current = self.head
+        mergee = other.head
+        '''
+        Cases:
+        Lists | Empty
+        List1   True
+        List2   True
+        List1   False
+        List2   False
+        List1   True
+        List2   False
+        List1   False
+        List2   True
+        '''
+        if mergee is None:
+            return
+        elif current is None:
+            for data in other:
+                self.append(data)
+            return
+
+        index = 0
+        while current:
+            if mergee.data <= current.data:
+                self.insert(mergee.data, index=index)
+                mergee = mergee.next
+            else:
+                current = current.next
+                index += 1
+
+        while mergee:
+            self.append(mergee.data)
+            mergee = mergee.next
 
     def pop(self, index=-1):
         '''
