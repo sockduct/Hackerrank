@@ -1,3 +1,13 @@
+from collections.abc import Iterable
+
+'''
+To Do:
+* Build out all magic methods
+* Add constructor that accepts iterator to initialize linked list
+* Consider alternate constructors via classmethod
+* Add testing through unittest and/or pytest
+'''
+
 class SinglyLinkedList():
     def __eq__(self, other):
         if self.__length != other.__length:
@@ -69,7 +79,11 @@ class SinglyLinkedList():
 
     def extend(self, data):
         'Append (a) new node(s) from iterable'
-        ...
+        if isinstance(data, Iterable):
+            for element in data:
+                self.append(element)
+        else:
+            self.append(data)
 
     def insert(self, data, index=0):
         '''
@@ -142,11 +156,65 @@ class SinglyLinkedList():
                 mergee = mergee.next
             else:
                 current = current.next
-                index += 1
-
+            index += 1
         while mergee:
             self.append(mergee.data)
             mergee = mergee.next
+        '''
+        Hackerrank Solutions:
+
+        // Pseudocode:
+        MergeSorted(Node a, Node b)
+            if a is NULL and b is NULL
+                return NULL
+            if a is NULL
+                return b
+            if b is NULL
+                return a
+
+            Node c // Combined List
+            if ((*a).value < (*b).value)
+                c = a
+                (*c).next = MergeSorted((*a).next, b)
+            else
+                c=b
+                (*c).next = MergeSorted(a, (*b).next)
+
+            return c
+
+        # Tester's code:
+        # head1 and head2 are the first node of each linked list
+        def mergeLists(head1, head2):
+            # get the correct first node and increment the pointer
+            if head1.data < head2.data:
+                head = head1
+                head1 = head1.next
+            else:
+                head = head2
+                head2 = head2.next
+            current = head
+
+            # while both of the lists have data
+            while head1 and head2:
+                # merge the lower value node
+                if head1.data < head2.data:
+                    current.next = head1
+                    head1 = head1.next
+                else:
+                    current.next = head2
+                    head2 = head2.next
+                # and update the pointer
+                current = current.next
+
+            # if there are nodes remaining in one of the lists,
+            # append it to the result
+            if head1:
+                current.next = head1
+            elif head2:
+                current.next = head2
+
+            return head
+        '''
 
     def pop(self, index=-1):
         '''
@@ -335,9 +403,25 @@ def test_method(method):
     return llist
 
 
+def test_merge():
+    ll1 = SinglyLinkedList()
+    ll2 = SinglyLinkedList()
+
+    ll1.extend(range(1, 6))
+    ll2.extend(range(3, 15, 2))
+
+    ll1.merge(ll2)
+    test_res = ', '.join(map(str, sorted(map(int, ll1.__str__().split(', ')))))
+    assert ll1.__str__() == test_res, ("Merge didn't work right.\n     Got:  "
+                                       f'{ll1.__str__()},\nExpected:  {test_res}.')
+
+
 if __name__ == '__main__':
     # method = ['append', 'insert', 'pop']
+    '''
     llist = test_method('append')
     index = int(input())
     llist.pop(index)
     print(llist)
+    '''
+    test_merge()
