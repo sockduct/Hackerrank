@@ -6,6 +6,7 @@ To Do:
 * Add constructor that accepts iterator to initialize linked list
 * Consider alternate constructors via classmethod
 * Add testing through unittest and/or pytest
+* Way to refactor offset & pop to minimize duplicate code since both similar?
 '''
 
 class SinglyLinkedList():
@@ -81,6 +82,7 @@ class SinglyLinkedList():
         'Append (a) new node(s) from iterable'
         if isinstance(data, Iterable):
             for element in data:
+                # No need to increment length - append handles
                 self.append(element)
         else:
             self.append(data)
@@ -146,12 +148,14 @@ class SinglyLinkedList():
             return
         elif current is None:
             for data in other:
+                # No need to handle length, append handles
                 self.append(data)
             return
 
         index = 0
-        while current:
+        while current and mergee:
             if mergee.data <= current.data:
+                # No need to handle length, append handles
                 self.insert(mergee.data, index=index)
                 mergee = mergee.next
             else:
@@ -215,6 +219,46 @@ class SinglyLinkedList():
 
             return head
         '''
+
+    def offset(self, index):
+        '''
+        Return the data at the offset (index) position
+        * Nonnegative offsets start from the head (beginning)
+        * Negative offsets start from the tail (end)
+
+        Cases:
+        Elements | Index    | Error
+        None     | any      | Yes
+        n        | >= n     | Yes
+        n        | < n      | No
+        -n       | [-n, -1] | No
+        -n       | other    | Yes
+
+        Note:  Python treats "-0" as 0, so -n < 0
+        '''
+        if self.__length == 0:
+            raise IndexError('Cannot index into empty list')
+        elif index >= self.__length or index < -self.__length:
+            raise IndexError(f'Requested index ({index}) out of range ({self.__length})')
+        '''
+        Cases:
+        index = 0 or -self.__length             == Head
+        index = self.__length - 1 or -1         == Tail
+        index in range(1, self.__length - 1)    == Middle (left -> right)
+        index in range(-1, -self.__length, - 1) == Middle (right -> left)
+        '''
+        if index in [0, -self.__length]:
+            return self.head.data
+
+        if index < 0:
+            index = self.__length + index
+
+        offset = 0
+        current = self.head
+        while offset < index:
+            current = current.next
+            offset += 1
+        return current.data
 
     def pop(self, index=-1):
         '''
