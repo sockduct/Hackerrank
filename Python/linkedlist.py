@@ -78,6 +78,32 @@ class SinglyLinkedList():
         self.__length += 1
         self.tail = node
 
+    def cycle(self):
+        'Detect if cycle present in list'
+        if self.head is self.tail:
+            return True
+
+        # Simple approach, but non-optimal:
+        '''
+        if self:
+            elements = []
+            for element in self:
+                address = id(element)
+                if address in elements:
+                    return True
+                elements.append(address)
+        '''
+
+        # Better approach leveraging Floyd's Tortoise and Hare cycle-finding algorithm:
+        slow = fast = self.head
+        while slow and fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast is slow:
+                return True
+
+        return False
+
     def extend(self, data):
         'Append (a) new node(s) from iterable'
         if isinstance(data, Iterable):
@@ -391,6 +417,15 @@ class SinglyLinkedList():
         return nxt
         '''
 
+    def unique(self):
+        'Return Singly Linked List of unique values - assumes list already sorted'
+        ulist = SinglyLinkedList()
+        for element in self:
+            if ulist and ulist.tail.data != element or not ulist:
+                ulist.append(element)
+
+        return ulist
+
 
     class Node():
         'SinglyLinkedList Node element'
@@ -459,6 +494,16 @@ def test_merge():
     assert ll1.__str__() == test_res, ("Merge didn't work right.\n     Got:  "
                                        f'{ll1.__str__()},\nExpected:  {test_res}.')
 
+def test_unique():
+    ll1 = SinglyLinkedList()
+    ll2 = SinglyLinkedList()
+
+    ll1.extend(range(5, 20, 2))
+    ll2.extend(range(1, 25))
+    ll1.merge(ll2)
+    print(f'         ll1:  {ll1}')
+    print(f'll1.unique():  {ll1.unique()}')
+
 
 if __name__ == '__main__':
     # method = ['append', 'insert', 'pop']
@@ -468,4 +513,5 @@ if __name__ == '__main__':
     llist.pop(index)
     print(llist)
     '''
-    test_merge()
+    # test_merge()
+    test_unique()
