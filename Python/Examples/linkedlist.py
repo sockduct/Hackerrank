@@ -10,6 +10,7 @@ To Do:
 '''
 
 class SinglyLinkedList():
+    'Implementation of a singly-linked-list which tracks head, tail, and length'
     def __eq__(self, other):
         if self.__length != other.__length:
             return False
@@ -48,12 +49,13 @@ class SinglyLinkedList():
         return not self.__eq__(other)
 
     def __repr__(self):
-        same = self.head is self.tail
-        return f'<head={self.head}, tail={self.tail}, head==tail={same}, nodes={self.__length}>'
+        circular = bool(self.head and self.tail and self.tail.next is self.head)
+        return f'<head={self.head}, tail={self.tail}, circular={circular}, nodes={self.__length}>'
 
     def __str__(self):
+        # Note:  It's an error to return None, must return a string!
         if not self.head:
-            return None
+            return ''
 
         current = self.head
         res = ''
