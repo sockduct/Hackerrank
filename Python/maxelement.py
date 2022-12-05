@@ -8,13 +8,12 @@ Start with empty sequence and given N queries:
 3) Print the maximum element in the stack.
 '''
 
-import avl_tree
-# Debug and fix!!!:
-# from red_black_tree import RedBlackTree
+# from rb_tree2 import RedBlackTree
+from balbintree import BinaryTree
 
 def getMax(ops):
     stack = []
-    tree = avl_tree.AVLtree()
+    tree = BinaryTree()
     results = []
 
     for op in ops:
@@ -25,16 +24,18 @@ def getMax(ops):
             tree.insert(val)
         elif choice == '2':
             val = stack.pop()
-            tree.del_node(val)
+            tree.remove(val)
         elif choice == '3':
-            results.append(avl_tree.get_right_most(tree.root))
+            results.append(tree.max)
         else:
             raise ValueError(f'Unexpected selection:  {choice}')
 
         # Debug
+        '''
         print(f'Stack:  {stack}')
         print(f'Tree:  {tree}')
         print('='*50)
+        '''
 
     return results
 
