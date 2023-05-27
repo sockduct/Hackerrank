@@ -9,7 +9,7 @@ Start with empty sequence and given N queries:
 '''
 
 # from rb_tree2 import RedBlackTree
-from balbintree import BinaryTree
+from ds.balbintree import BinaryTree
 
 def getMax(ops):
     stack = []
