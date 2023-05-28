@@ -21,3 +21,6 @@ __pycache__/*
 # Test files
 *.txt
 
+# Reference directories:
+Python/ds/*
+Python/examples/*
