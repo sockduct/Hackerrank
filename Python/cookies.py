@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import heapq
+import sys
 
 #
 # Complete the 'cookies' function below.
@@ -74,13 +75,13 @@ def cookies(k, A):
     # Write your code here
     # Objective:
     # * Use algorithm on jar "A"
-    # * All remaining cookies must have sweetness > k
+    # * All remaining cookies must have sweetness >= k
     # * If yes, return iterations to achieve objective
     # * If no, return -1
     jar = Heap(A)
     ops = 0
 
-    while jar.first <= k and jar.count >= 2:
+    while jar.first < k and jar.count >= 2:
         first = jar.pop()
         second = jar.pop()
         sweeter = first + (2 * second)
@@ -88,11 +89,20 @@ def cookies(k, A):
         ops += 1
 
     # Check if objective met:
-    return ops if all(cookie > k for cookie in jar) else -1
+    return ops if all(cookie >= k for cookie in jar) else -1
+
 
 if __name__ == '__main__':
-    n, k = map(int, input().split())
-    A = list(map(int, input().split()))
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as infile:
+            for lnum, line in enumerate(infile):
+                if lnum == 0:
+                    n, k = map(int, line.split())
+                else:
+                    A = list(map(int, line.split()))
+    else:
+        n, k = map(int, input().split())
+        A = list(map(int, input().split()))
 
     result = cookies(k, A)
 
