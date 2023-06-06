@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 
 import copy
+import pathlib
+import sys
 
 
 def equal_heights(heights):
@@ -34,10 +36,35 @@ def max_equal_height(stacks):
     return 0
 
 
+def get_input(file=None):
+    def process_input(file=None):
+        # Number of elements for each stack (stack element #):
+        # Don't need these in Python but since they're part of the spec, reading
+        # them in:
+        se1, se2, se3 = map(int, input().split())
+        return {stack: [int(n) for n in input().split()] for stack in range(3)}
+
+    if file:
+        with open(file) as infile:
+            save_stdin = sys.stdin
+            sys.stdin = infile
+            res = process_input(infile)
+            sys.stdin = save_stdin
+            return res
+
+    return process_input()
+
+
 if __name__ == '__main__':
-    # Number of elements for each stack (stack element #):
-    se1, se2, se3 = map(int, input().split())
-    stacks = {stack: [int(n) for n in input().split()] for stack in range(3)}
+    file = None
+
+    if len(sys.argv) == 2:
+        file = sys.argv[1]
+    elif len(sys.argv) > 2:
+        print(f'Usage:  {pathlib.Path(__file__).name} [<input_file>]')
+        sys.exit(1)
+
+    stacks = get_input(file)
 
     # Top of stack is left of list, so reverse lists:
     for stack in stacks.values():
