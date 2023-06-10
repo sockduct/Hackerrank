@@ -3,10 +3,11 @@
 import copy
 import pathlib
 import sys
+import time
 
 
 def equal_heights(heights):
-    return all(val == heights[0] for val in heights)
+    return heights[0] == heights[1] == heights[2]
 
 
 def max_equal_height(stacks):
@@ -24,14 +25,11 @@ def max_equal_height(stacks):
             return heights[0]
 
         if heights[2] <= heights[0] >= heights[1]:
-            stacks[0].pop()
-            heights[0] = sum(stacks[0])
+            heights[0] -= stacks[0].pop()
         elif heights[0] <= heights[1] >= heights[2]:
-            stacks[1].pop()
-            heights[1] = sum(stacks[1])
+            heights[1] -= stacks[1].pop()
         else:
-            stacks[2].pop()
-            heights[2] = sum(stacks[2])
+            heights[2] -= stacks[2].pop()
 
     return 0
 
@@ -56,6 +54,7 @@ def get_input(file=None):
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     file = None
 
     if len(sys.argv) == 2:
@@ -65,10 +64,17 @@ if __name__ == '__main__':
         sys.exit(1)
 
     stacks = get_input(file)
+    input_time = time.time()
 
     # Top of stack is left of list, so reverse lists:
     for stack in stacks.values():
         stack.reverse()
+    reversal_time = time.time()
 
     res = max_equal_height(stacks)
     print(res)
+
+    end_time = time.time()
+    print(f'\nRun times:\n* Input time:  {(input_time - start_time):,.4f} seconds\n'
+          f'* Reversal time:  {(reversal_time - input_time):,.4f} seconds\n'
+          f'* Algorithm time:  {(end_time - reversal_time):,.4f} seconds\n')
