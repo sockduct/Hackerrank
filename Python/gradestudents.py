@@ -2,23 +2,30 @@
 
 '''
 Problem Description:
-* x
+* Every student gets grade:  [0, 100]
+    * Grade < 40 = fail
+* Grading rules:
+    * If grade < 38, no rounding occurs
+    * If difference between grade and next multiple of 5 is < 3, round grade up to next multiple of 5
 
 Sample Data:
 * Input:
-    ...
+    4
+    73
+    67
+    38
+    33
 * Output:
-    ...
+    75
+    67
+    40
+    33
 
 Approach:
 * x
 
 To Do:
-* Validate sample data with doctest:
-    * doctest — Test interactive Python examples:
-        https://docs.python.org/3/library/doctest.html
-    * Python's doctest: Document and Test Your Code at Once:
-        https://realpython.com/python-doctest/
+* x
 '''
 
 
@@ -27,24 +34,34 @@ import sys
 import time
 
 
-def task_to_do(data):
-    ...
+def grade(data):
+    final_grades = []
 
-    return res
+    for grade in data:
+        adjust = 0
+        match (ones:= grade % 10):
+            case 8 | 9 if grade >= 38:
+                adjust = 10 - ones
+            case 3 | 4 if grade >= 38:
+                adjust = 5 - ones
+            case digit if digit in range(10):
+                pass
+            case _:
+                raise ValueError(f'Unexpected value:  {ones} from {grade}')
+        final_grades.append(grade + adjust)
+
+    return final_grades
 
 
 def get_input(file=None):
     def process_input():
         '''
         Input format:
-        * n queries
-        * Queries:
-            1 x - Push the element x into the stack
-            2   - Delete the element present at the top of the stack.
-            3   - Print the maximum element in the stack.
+        * n students
+        * Each subsequent line contains a single grade - an integer
         '''
         n = int(input())
-        return [input() for _ in range(n)]
+        return [int(input().strip()) for _ in range(n)]
 
     if file:
         with open(file) as in_file:
@@ -72,9 +89,9 @@ if __name__ == '__main__':
     data = get_input(file)
 
     # Process...
-    res = task_to_do(data)
-    for item in res:
-        print(item)
+    res = grade(data)
+    for grade in res:
+        print(grade)
 
     end_time = time.time()
     if verbose:
